@@ -1,3 +1,8 @@
+/**
+ * Powered by zydsoft™
+ * 2021-3-5
+ * zz
+ */
 const koa = require("koa")
 const { initController, initService, initConfig, initSchedule } = require("./loader")
 
