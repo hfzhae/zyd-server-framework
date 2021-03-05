@@ -52,7 +52,7 @@ function initConfig(app) {
   load("config", (filename, conf) => {
     if (conf.mongo) {
       const mongoose = require("mongoose")
-      conf.mongo.host = process.env._pm2_version ? 'mongo-public-service' : conf.mongo.host //使用pm2即认为是生产环境
+      // conf.mongo.host = process.env._pm2_version ? 'mongo-public-service' : conf.mongo.host //使用pm2即认为是生产环境
       mongoose.connect(`mongodb://${conf.mongo.user}:${conf.mongo.pass}@${conf.mongo.host}:${conf.mongo.port}/`, {
         useCreateIndex: true,
         useFindAndModify: false,
