@@ -69,11 +69,12 @@ function initConfig(app) {
       mongoose.connection.on("disconnected", () => {
         console.log('mongodb connect disconnected')
       })
-      app.$model = {}
-      load("model", (filename, model) => {
-        app.$model[filename] = model
-      })
     }
+    // model
+    app.$model = {}
+    load("model", (filename, model) => {
+      app.$model[filename] = model
+    })
     // 中间件
     if (conf.middleware) {
       conf.middleware.forEach(mid => {
