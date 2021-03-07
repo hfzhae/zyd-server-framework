@@ -49,26 +49,38 @@ function initService() {
 
 function initConfig(app) {
   load("middleware", (filename, conf) => { })
+  const plugin = {}
   load("config", (filename, conf) => {
-    if (conf.mongo) {
-      const mongoose = require("mongoose")
-      // conf.mongo.host = process.env._pm2_version ? 'mongo-public-service' : conf.mongo.host //使用pm2即认为是生产环境
-      mongoose.connect(`mongodb://${conf.mongo.user}:${conf.mongo.pass}@${conf.mongo.host}:${conf.mongo.port}/`, {
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        dbName: 'publicService'
+    //数据库
+    if (conf.db) {
+      conf.db.forEach(item => {
+        switch (item.type) {
+          case "mongo":
+            const mongoose = require("mongoose")
+            let replicaSet = item.options.replicaSet
+            replicaSet = replicaSet ? "?replicaSet=" + replicaSet : ""
+            mongoose.connect(`mongodb://${item.options.user}:${item.options.pass}@${item.options.host}:${item.options.port}/${replicaSet}`, {
+              useCreateIndex: true,
+              useFindAndModify: false,
+              useNewUrlParser: true,
+              useUnifiedTopology: true,
+              dbName: item.options.dbName
+            })
+            mongoose.connection.on("connected", () => {
+              console.log('mongodb connect success')
+            })
+            mongoose.connection.on("error", () => {
+              console.log('mongodb connect error')
+            })
+            mongoose.connection.on("disconnected", () => {
+              console.log('mongodb connect disconnected')
+            })
+            break
+          case "mysql": break
+          case "mssql": break
+        }
       })
-      mongoose.connection.on("connected", () => {
-        console.log('mongodb connect success')
-      })
-      mongoose.connection.on("error", () => {
-        console.log('mongodb connect error')
-      })
-      mongoose.connection.on("disconnected", () => {
-        console.log('mongodb connect disconnected')
-      })
+
     }
     // model
     app.$model = {}
@@ -82,7 +94,11 @@ function initConfig(app) {
         app.$app.use(require(midPath))
       })
     }
+    if (conf.plugin) {
+      Object.keys(conf.plugin).forEach(item => plugin[item] = conf.plugin[item])
+    }
   })
+  return plugin
 }
 
 function initSchedule() {

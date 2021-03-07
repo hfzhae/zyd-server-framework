@@ -4,19 +4,23 @@
  * zz
  */
 const koa = require("koa")
+const koaBody = require("koa-body")
 const { initController, initService, initConfig, initSchedule } = require("./loader")
 
 class zyd {
   constructor(conf) {
     this.$app = new koa(conf)
-
+    this.$app.use(koaBody({
+      multipart: true, // 支持文件上传
+      encoding: 'gzip',
+    }))
     //执行配置文件
-    initConfig(this)
+    this.$plugin = initConfig(this) //返回plugin配置
     initSchedule()
-    
+
     this.$service = initService()
-    this.$ctrl = initController(this)
-    this.$app.use(this.$ctrl.routes())
+    this.$controller = initController(this)
+    this.$app.use(this.$controller.routes())
   }
 
   start(port, callBack = () => {

@@ -1,6 +1,6 @@
 {
   "name": "zyd-server-framework",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "description": "基于nodejs,koa的server端框架",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
     "koa-router": "^10.0.0",
     "mongoose": "^5.11.18",
     "node-schedule": "^2.0.0"

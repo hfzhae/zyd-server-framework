@@ -26,16 +26,24 @@ module.exports = app => ({
       case "config":
         fs.writeFileSync(`${dir}/index.js`, `
 module.exports = {
-  // mongo: {
-  //   user: "user",
-  //   pass: "",
-  //   port: 27017,
-  //   host: "localhost"
-  // },
+  db: [
+    // {
+    //   type:"mongo",
+    //   options: {
+    //       user: "user",
+    //       pass: "",
+    //       port: 27017,
+    //       host: "localhost",
+    //       dbName: "db",
+    //       replicaSet: "",
+    //   }
+    // }
+  ]
   middleware: [
     "error",
     "favicon",
-  ]
+  ],
+  plugin:{}
 }
         `, function (error) {
           if (error) {

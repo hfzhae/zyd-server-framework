@@ -3,5 +3,6 @@ config
 controller
 schedule
 service
+model
 main.js
 middleware
