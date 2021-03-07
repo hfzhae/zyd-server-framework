@@ -5,7 +5,7 @@
  */
 const koa = require("koa")
 const koaBody = require("koa-body")
-const { initController, initService, initConfig, initSchedule } = require("./loader")
+const { initController, initService, initConfig, initSchedule, initModel } = require("./loader")
 
 class zyd {
   constructor(conf) {
@@ -16,9 +16,10 @@ class zyd {
     }))
     //执行配置文件
     this.$plugin = initConfig(this) //返回plugin配置
-    initSchedule()
+    initSchedule(this)
 
-    this.$service = initService()
+    this.$service = initService(this)
+    this.$model = initModel(this)
     this.$controller = initController(this)
     this.$app.use(this.$controller.routes())
   }

@@ -23,14 +23,12 @@ function initController(app) {
   const router = new Router()
   load("controller", (filename, routes) => {
     //路由的前缀
-    const prefix = filename === "index" ? "" : `/${filename}`
-
-    routes = typeof routes === "function" ? routes(app) : routes
-
+    // filename = filename === "index" ? "" : `/${filename}`
+    routes = typeof routes === "function" ? routes(app) : routes // 支持柯里化
     Object.keys(routes).forEach(key => {
       const [method, path] = key.split(" ")
-      console.log(`正在映射地址: ${method.toLocaleUpperCase()} ${prefix}${path}`)
-      router[method](prefix + path, async ctx => {
+      console.log(`正在映射地址: ${method.toLocaleUpperCase()} ${filename}${path}`)
+      router[method](filename + path, async ctx => {
         app.ctx = ctx
         await routes[key](app)
       })
@@ -39,9 +37,10 @@ function initController(app) {
   return router
 }
 
-function initService() {
+function initService(app) {
   const services = {}
   load("service", (filename, service) => {
+    service = typeof service === "function" ? service(app) : service  // 支持柯里化
     services[filename] = service
   })
   return services
@@ -80,13 +79,7 @@ function initConfig(app) {
           case "mssql": break
         }
       })
-
     }
-    // model
-    app.$model = {}
-    load("model", (filename, model) => {
-      app.$model[filename] = model
-    })
     // 中间件
     if (conf.middleware) {
       conf.middleware.forEach(mid => {
@@ -101,12 +94,23 @@ function initConfig(app) {
   return plugin
 }
 
-function initSchedule() {
+//定时器
+function initSchedule(app) {
   const schedule = require("node-schedule")
   load("schedule", (filename, schduleConfig) => {
-    const conf = schduleConfig()
+    const conf = schduleConfig(app)
     schedule.scheduleJob(conf.interval, conf.handler)
   })
 }
 
-module.exports = { initController, initService, initConfig, initSchedule }
+// model
+function initModel(app) {
+  const models = {}
+  load("model", (filename, model) => {
+    model = typeof model === "function" ? model(app) : model // 支持柯里化
+    models[filename] = model
+  })
+  return models
+}
+
+module.exports = { initController, initService, initConfig, initSchedule, initModel }

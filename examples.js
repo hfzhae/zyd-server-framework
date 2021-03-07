@@ -135,7 +135,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = mongoose.model("user", schema)
+module.exports = app => mongoose.model("user", schema)
         `, function (error) {
           if (error) {
             console.log(error);
