@@ -41,6 +41,7 @@ function initController(app) {
 function initService(app) {
   const services = {}
   load("service", (filename, service) => {
+    console.log(`正在加载服务: ${filename}`)
     service = typeof service === "function" ? service(app) : service  // 支持柯里化
     services[filename] = service
   })
@@ -84,6 +85,7 @@ function initConfig(app) {
     // 中间件
     if (conf.middleware) {
       conf.middleware.forEach(mid => {
+        console.log(`正在加载中间件: ${mid}`)
         const midPath = path.relative(__dirname, "middleware") + "/" + mid
         app.$app.use(require(midPath))
       })
@@ -108,6 +110,7 @@ function initSchedule(app) {
 function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
+    console.log(`正在加载模型: ${filename}`)
     model = typeof model === "function" ? model(app) : model // 支持柯里化
     models[filename] = model
   })
