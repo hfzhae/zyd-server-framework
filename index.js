@@ -9,7 +9,10 @@ const { initController, initService, initConfig, initSchedule, initModel } = req
 
 class zyd {
   constructor(conf) {
-    this.$app = new koa(conf)
+    this.$app = new koa()
+    if(conf && conf.cors){
+      this.$app.use(require('koa2-cors')())
+    }
     this.$app.use(koaBody({
       multipart: true, // 支持文件上传
       encoding: 'gzip',

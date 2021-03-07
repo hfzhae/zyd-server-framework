@@ -24,6 +24,7 @@ function initController(app) {
   load("controller", (filename, routes) => {
     //路由的前缀
     // filename = filename === "index" ? "" : `/${filename}`
+    filename = "/" + filename
     routes = typeof routes === "function" ? routes(app) : routes // 支持柯里化
     Object.keys(routes).forEach(key => {
       const [method, path] = key.split(" ")
