@@ -116,4 +116,15 @@ function initModel(app) {
   return models
 }
 
-module.exports = { initController, initService, initConfig, initSchedule, initModel }
+//plugin
+function initPlugin(app){
+  const plugin = {}
+  load("plugin", (filename, plugin) => {
+    console.log(`正在加载插件: ${filename}`)
+    plugin = typeof plugin === "function" ? plugin(app) : plugin // 支持柯里化
+    plugin[filename] = plugin
+  })
+  return plugin
+}
+
+module.exports = { initController, initService, initConfig, initSchedule, initModel, initPlugin }

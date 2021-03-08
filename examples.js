@@ -141,7 +141,22 @@ module.exports = app => mongoose.model("user", schema)
             console.log(error);
             return false;
           }
-          console.log(`${dir}/favicon.js成功`);
+          console.log(`${dir}/user.js成功`);
+        })
+        break
+      case "plugin":
+        fs.writeFileSync(`${dir}/utils.js`, `
+module.exports = app => ({
+  timestamp() {
+    return parseInt(Date.parse(new Date) / 1000)
+  },
+})
+          `, function (error) {
+          if (error) {
+            console.log(error);
+            return false;
+          }
+          console.log(`${dir}/utils.js成功`);
         })
         break
     }
