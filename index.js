@@ -18,7 +18,7 @@ class zyd {
       encoding: 'gzip',
     }))
     //执行配置文件
-    this.$plugin = initConfig(this) //返回plugin配置
+    this.$config = initConfig(this) //返回config配置
     initSchedule(this)
 
     this.$service = initService(this)

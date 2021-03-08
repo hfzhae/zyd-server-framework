@@ -50,8 +50,10 @@ function initService(app) {
 
 function initConfig(app) {
   load("middleware", (filename, conf) => { })
-  const plugin = {}
+  const config = {}
   load("config", (filename, conf) => {
+    config[filename] = {}
+    Object.keys(conf).forEach(item => config[filename][item] = conf[item])
     //数据库
     if (conf.db) {
       conf.db.forEach(item => {
@@ -90,11 +92,8 @@ function initConfig(app) {
         app.$app.use(require(midPath))
       })
     }
-    if (conf.plugin) {
-      Object.keys(conf.plugin).forEach(item => plugin[item] = conf.plugin[item])
-    }
   })
-  return plugin
+  return config
 }
 
 //定时器
@@ -111,7 +110,7 @@ function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
     console.log(`正在加载模型: ${filename}`)
-    model = typeof model === "function" ? model(app) : model // 支持柯里化
+    // model = typeof model === "function" ? model(app) : model // 支持柯里化
     models[filename] = model
   })
   return models
