@@ -150,6 +150,16 @@ module.exports = app => ({
   timestamp() {
     return parseInt(Date.parse(new Date) / 1000)
   },
+  randomNum(n){
+    const range = function (start, end) {
+      var array = [];
+      for (var i = start; i < end; ++i) array.push(i);
+      return array;
+    }
+    return range(0, n).map((x) => {
+      return Math.floor(Math.random() * 10);
+    }).join('')
+  }
 })
           `, function (error) {
           if (error) {

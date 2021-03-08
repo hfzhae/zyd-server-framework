@@ -117,14 +117,14 @@ function initModel(app) {
 }
 
 //plugin
-function initPlugin(app){
-  const plugin = {}
+function initPlugin(app) {
+  const plugins = {}
   load("plugin", (filename, plugin) => {
     console.log(`正在加载插件: ${filename}`)
     plugin = typeof plugin === "function" ? plugin(app) : plugin // 支持柯里化
-    plugin[filename] = plugin
+    plugins[filename] = plugin
   })
-  return plugin
+  return plugins
 }
 
 module.exports = { initController, initService, initConfig, initSchedule, initModel, initPlugin }
