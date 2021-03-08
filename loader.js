@@ -110,7 +110,7 @@ function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
     console.log(`正在加载模型: ${filename}`)
-    plugin = typeof plugin === "function" ? plugin(app) : plugin // 支持柯里化
+    model = !model.modelName ? model(app) : model // 支持柯里化
     models[filename] = model
   })
   return models
