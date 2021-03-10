@@ -89,7 +89,9 @@ function initConfig(app) {
       conf.middleware.forEach(mid => {
         console.log(`正在加载中间件: ${mid}`)
         const midPath = path.relative(__dirname, "middleware") + "/" + mid
-        app.$app.use(require(midPath))
+        let middle = require(midPath)
+        middle = middle.length == 1 ? middle(app) : middle // 中间件柯里化
+        app.$app.use(middle)
       })
     }
   })

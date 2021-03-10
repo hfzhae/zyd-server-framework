@@ -43,7 +43,6 @@ module.exports = {
     "error",
     "favicon",
   ],
-  plugin:{}
 }
         `, function (error) {
           if (error) {
