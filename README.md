@@ -7,12 +7,13 @@ $ npm install -Save zyd-server-framework
 
 ```js
 const Zsf = require("zyd-server-framework")
-const app = new Zsf()
+const app = new Zsf() // new Zsf({ cors: true })
 app.start(3000)
 ```
 
 ## config
 >/config/conf.js
+
 ```js
 module.exports = {
   db: [
@@ -41,6 +42,7 @@ app.$config.conf.middleware
 
 ## controller
 >/controller/home.js
+
 ```js
 module.exports = app => ({
   "get /"(){
@@ -52,6 +54,7 @@ module.exports = app => ({
 
 ## service
 >/service/user.js
+
 ```js
 module.exports = app => ({
   getName() {
@@ -65,6 +68,7 @@ app.$service.user.getName()
 
 ## middleware
 >/middleware/favicon.js
+
 ```js
 module.exports = async (ctx, next) => {
   if (ctx.path === "/favicon.ico") {
@@ -77,6 +81,7 @@ module.exports = async (ctx, next) => {
 
 ## model
 >/model/user.js
+
 ```js
 const mongoose = require("mongoose")
 const schema = new mongoose.Schema({
@@ -91,6 +96,7 @@ app.$model.user
 
 ## plugin
 >/plugin/utils.js
+
 ```js
 module.exports = app => ({
   timestamp() {
@@ -104,6 +110,7 @@ app.$plugin.utils.timestamp()
 
 ## schedule
 >/schedule/index.js
+
 ```js
 module.exports = app => ({
   interval: "0 1 * * * *", //crontab格式
