@@ -88,7 +88,8 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => (["mongo", mongoose.model("user", schema)]) //'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一
+module.exports = app => (["mongo", mongoose.model("user", schema)])
+//'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一
 ```
 ```js
 app.$model.user
