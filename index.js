@@ -3,13 +3,13 @@
  * 2021-3-5
  * zz
  */
-const koa = require("koa")
+const Koa = require("koa")
 const koaBody = require("koa-body")
 const { initController, initService, initConfig, initSchedule, initModel, initPlugin } = require("./loader")
 
-class zyd {
+class Zyd {
   constructor(conf) {
-    this.$app = new koa()
+    this.$app = new Koa()
     if(conf && conf.cors){
       this.$app.use(require('koa2-cors')())
     }
@@ -35,4 +35,4 @@ class zyd {
   }
 }
 
-module.exports = zyd
+module.exports = Zyd
