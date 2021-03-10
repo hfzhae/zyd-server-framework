@@ -12,9 +12,8 @@ app.start(3000)
 ```
 
 ## config
+>/config/conf.js
 ```js
-/config/conf.js
-
 module.exports = {
   db: [
     {
@@ -28,38 +27,44 @@ module.exports = {
           replicaSet: "",
       }
     }
-  ]
+  ],
   middleware: [
     "error",
     "favicon",
   ],
 }
-
+```
+```js
 app.$config.conf.db
+app.$config.conf.middleware
 ```
 
 ## controller
+>/controller/home.js
 ```js
 module.exports = app => ({
   "get /"(){
-    app.ctx.body = "首页"
+    app.ctx.body = "Hello World"
   },
 })
 ```
-## service
-```js
-/service/user.js
+[http://localhost:3000/home](http://localhost:3000/home)
 
+## service
+>/service/user.js
+```js
 module.exports = app => ({
   getName() {
     return "userName"
   },
 })
-
+```
+```js
 app.$service.user.getName()
 ```
 
 ## middleware
+>/middleware/favicon.js
 ```js
 module.exports = async (ctx, next) => {
   if (ctx.path === "/favicon.ico") {
@@ -71,34 +76,34 @@ module.exports = async (ctx, next) => {
 ```
 
 ## model
-
+>/model/user.js
 ```js
-/model/user.js
-
 const mongoose = require("mongoose")
 const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
 module.exports = app => mongoose.model("user", schema)
-
+```
+```js
 app.$model.user
 ```
 
 ## plugin
+>/plugin/utils.js
 ```js
-/plugin/utils.js
-
 module.exports = app => ({
   timestamp() {
     return parseInt(Date.parse(new Date) / 1000)
   },
 })
-
+```
+```js
 app.$plugin.utils.timestamp()
 ```
 
 ## schedule
+>/schedule/index.js
 ```js
 module.exports = app => ({
   interval: "0 1 * * * *", //crontab格式

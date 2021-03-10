@@ -1,3 +1,8 @@
+/**
+ * Powered by zydsoft™
+ * 2021-3-10
+ * zz
+ */
 module.exports = dir => {
   const fs = require("fs")
   try {
@@ -9,7 +14,7 @@ module.exports = dir => {
         fs.writeFileSync(`${dir}/index.js`, `
 module.exports = app => ({
   "get /"(){
-    app.ctx.body = "首页"
+    app.ctx.body = "Hello World"
   },
   "get /user": async () =>{ 
     app.ctx.body = await app.$service.user.getName()
@@ -38,7 +43,7 @@ module.exports = {
     //       replicaSet: "",
     //   }
     // }
-  ]
+  ],
   middleware: [
     "error",
     "favicon",
