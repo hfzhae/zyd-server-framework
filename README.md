@@ -1,6 +1,6 @@
-## [github](https://github.com/hfzhae/zyd-server-framework)
+# [zyd-server-framework](https://github.com/hfzhae/zyd-server-framework)
 
-## install
+## Installation
 ```
 $ npm install -Save zyd-server-framework
 ```
@@ -13,6 +13,8 @@ app.start(3000)
 
 ## config
 ```js
+/config/conf.js
+
 module.exports = {
   db: [
     {
@@ -32,6 +34,8 @@ module.exports = {
     "favicon",
   ],
 }
+
+app.$config.conf.db
 ```
 
 ## controller
@@ -44,11 +48,15 @@ module.exports = app => ({
 ```
 ## service
 ```js
+/service/user.js
+
 module.exports = app => ({
   getName() {
     return "userName"
   },
 })
+
+app.$service.user.getName()
 ```
 
 ## middleware
@@ -65,21 +73,29 @@ module.exports = async (ctx, next) => {
 ## model
 
 ```js
+/model/user.js
+
 const mongoose = require("mongoose")
 const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
 module.exports = app => mongoose.model("user", schema)
+
+app.$model.user
 ```
 
 ## plugin
 ```js
+/plugin/utils.js
+
 module.exports = app => ({
   timestamp() {
     return parseInt(Date.parse(new Date) / 1000)
   },
 })
+
+app.$plugin.utils.timestamp()
 ```
 
 ## schedule
@@ -91,3 +107,6 @@ module.exports = app => ({
   }
 })
 ```
+
+## License
+[MIT](https://github.com/hfzhae/zyd-server-framework/blob/master/LICENSE)

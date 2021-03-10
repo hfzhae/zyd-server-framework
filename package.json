@@ -1,14 +1,15 @@
 {
   "name": "zyd-server-framework",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "基于nodejs,koa的server端框架",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["node", "nodejs", "koa"],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "homepage":"https://github.com/hfzhae/zyd-server-framework",
   "dependencies": {
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
