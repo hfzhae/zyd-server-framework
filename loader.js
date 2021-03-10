@@ -79,8 +79,10 @@ function initConfig(app) {
               console.log('mongodb connect disconnected')
             })
             break
-          case "mysql": break
-          case "mssql": break
+          case "mssql": case "mariadb": case "postgres": case "mssql":
+            const Sequelize = require("sequelize")
+            app.$config.db[item.type] = new Sequelize(item.options)
+            break
         }
       })
     }
@@ -112,8 +114,15 @@ function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
     console.log(`正在加载模型: ${filename}`)
-    model = !model.modelName ? model(app) : model // 支持柯里化
-    models[filename] = model
+    model = model(app)
+    switch (model[0]) {
+      case "mongo":
+        models[filename] = model[1]
+        break
+      case "mssql": case "mariadb": case "postgres": case "mssql":
+        app.$model[filename] = app.$config.db[model[0]].define(filename, model[1].schema, model[1].options)
+        break
+    }
   })
   return models
 }

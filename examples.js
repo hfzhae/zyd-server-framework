@@ -42,6 +42,26 @@ module.exports = {
     //       dbName: "db",
     //       replicaSet: "",
     //   }
+    // },
+    // {
+    //   type:"mysql",
+    //   options: {
+    //     dialect: "mysql",
+    //     host: "localhost",
+    //     database: "database",
+    //     username: "root",
+    //     password: "example"
+    //   }
+    // },
+    // {
+    //   type:"mssql",
+    //   options: {
+    //     dialect: "mssql",
+    //     host: "localhost",
+    //     database: "database",
+    //     username: "sa",
+    //     password: ""
+    //   }
     // }
   ],
   middleware: [
@@ -139,7 +159,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => mongoose.model("user", schema)
+module.exports = app => (["mongo", mongoose.model("user", schema)])
         `, function (error) {
           if (error) {
             console.log(error);
