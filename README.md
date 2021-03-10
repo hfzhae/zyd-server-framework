@@ -27,6 +27,26 @@ module.exports = {
           dbName: "db",
           replicaSet: "",
       }
+    },
+    {
+      type:"mysql",
+      options: {
+        dialect: "mysql",
+        host: "localhost",
+        database: "database",
+        username: "root",
+        password: "example"
+      }
+    },
+    {
+      type:"mssql",
+      options: {
+        dialect: "mssql",
+        host: "localhost",
+        database: "database",
+        username: "sa",
+        password: ""
+      }
     }
   ],
   middleware: [
