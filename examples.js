@@ -34,6 +34,7 @@ module.exports = {
   db: [
     // {
     //   type:"mongo",
+    //   name: "mongo1",
     //   options: {
     //       user: "user",
     //       pass: "",
@@ -45,6 +46,7 @@ module.exports = {
     // },
     // {
     //   type:"mysql",
+    //   name:"mysql1",
     //   options: {
     //     dialect: "mysql",
     //     host: "localhost",
@@ -55,6 +57,7 @@ module.exports = {
     // },
     // {
     //   type:"mssql",
+    //   name:"mssql1",
     //   options: {
     //     dialect: "mssql",
     //     host: "localhost",
@@ -159,7 +162,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => (["mongo", mongoose.model("user", schema)])
+module.exports = app => app.$model.db.mongo1("user", schema)
         `, function (error) {
           if (error) {
             console.log(error);
