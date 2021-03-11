@@ -6,7 +6,6 @@
 const fs = require("fs")
 const path = require("path")
 const Router = require("koa-router")
-const { verify } = require("crypto")
 
 //读取指定目录文件
 function load(dir, cb) {
@@ -58,32 +57,31 @@ function initConfig(app) {
     //数据库
     if (conf.db) {
       conf.db.forEach(item => {
-        const Sequelize = require("sequelize")
-        switch (item.type) {
+        switch (item.nm) {
           case "mongo":
             const mongoose = require("mongoose")
             let replicaSet = item.options.replicaSet
             replicaSet = replicaSet ? "?replicaSet=" + replicaSet : ""
-            const db = mongoose.createConnection(`mongodb://${item.options.user}:${item.options.pass}@${item.options.host}:${item.options.port}/${replicaSet}`, {
+            mongoose.connect(`mongodb://${item.options.user}:${item.options.pass}@${item.options.host}:${item.options.port}/${replicaSet}`, {
               useCreateIndex: true,
               useFindAndModify: false,
               useNewUrlParser: true,
               useUnifiedTopology: true,
               dbName: item.options.dbName
             })
-            db.connection.on("connected", () => {
+            mongoose.connection.on("connected", () => {
               console.log('mongodb connect success')
             })
-            db.connection.on("error", () => {
+            mongoose.connection.on("error", () => {
               console.log('mongodb connect error')
             })
-            db.connection.on("disconnected", () => {
+            mongoose.connection.on("disconnected", () => {
               console.log('mongodb connect disconnected')
             })
-            app.$config.db[item.name] = db
             break
           case "mssql": case "mariadb": case "postgres": case "mssql":
-            app.$config.db[item.name] = new Sequelize(item.options)
+            const Sequelize = require("sequelize")
+            app.$config.db[item.type] = new Sequelize(item.options)
             break
         }
       })
@@ -116,7 +114,15 @@ function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
     console.log(`正在加载模型: ${filename}`)
-    app.$model[filename] = model(app)
+    model = model(app)
+    switch (model[0]) {
+      case "mongo":
+        models[filename] = model[1]
+        break
+      case "mssql": case "mariadb": case "postgres": case "mssql":
+        app.$model[filename] = app.$config.db[model[0]].define(filename, model[1].schema, model[1].options)
+        break
+    }
   })
   return models
 }
