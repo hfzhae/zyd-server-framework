@@ -4,7 +4,7 @@
  * zz
  */
 const Koa = require("koa")
-const koaBody = require("koa-body")
+const bodyParser = require("koa-bodyparser")
 const { initController, initService, initConfig, initSchedule, initModel, initPlugin } = require("./loader")
 
 class Zyd {
@@ -13,10 +13,7 @@ class Zyd {
     if(conf && conf.cors){
       this.$app.use(require('koa2-cors')())
     }
-    this.$app.use(koaBody({
-      multipart: true, // 支持文件上传
-      encoding: 'gzip',
-    }))
+    this.$app.use(bodyParser())
     //执行配置文件
     this.$config = initConfig(this) //返回config配置
     this.$plugin = initPlugin(this)
