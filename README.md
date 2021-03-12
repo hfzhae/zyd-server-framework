@@ -21,7 +21,7 @@ module.exports = {
       type:"mongo",
       name:"mongo",
       options: {
-          connect:"user:passwork@localhost:27017",
+          connect:"user:password@localhost:27017",
           dbName: "db",
       }
     },
