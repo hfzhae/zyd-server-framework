@@ -122,7 +122,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => app.$config.bd.mongo.model("user", schema)
+module.exports = app => app.$config.db.mongo.model("user", schema)
 ```
 ```js
 app.$model.user

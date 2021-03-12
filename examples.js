@@ -33,14 +33,14 @@ module.exports = app => ({
 module.exports = {
   db: [
     /* type: 'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */
-    // {
-    //   type:"mongo",
-    //   name:"mongo",
-    //   options: {
-    //       connect:"user:password@localhost:27017",
-    //       dbName: "db",
-    //   }
-    // },
+    {
+      type:"mongo",
+      name:"mongo",
+      options: {
+          connect:"localhost:27017", //connect:"user:password@localhost:27017",
+          dbName: "db",
+      }
+    },
     // {
     //   type:"mysql", 
     //   name:"mysql1",
@@ -177,7 +177,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => app.$config.bd.mongo.model("user", schema)
+module.exports = app => app.$config.db.mongo.model("user", schema)
         `, function (error) {
           if (error) {
             console.log(error);
