@@ -158,7 +158,7 @@ const router = new Router(); // 实例化路由
 const assert = require("http-assert")
         
 module.exports = (router.post("/callBack:id", async ctx => {
-  const id = ctx.parmas.id
+  const id = ctx.params.id
   assert(id, 400, "缺少id")
   ctx.body = "中间件前置路由"
 })).routes()
