@@ -51,37 +51,37 @@ function initService(app) {
 function initConfig(app) {
   load("middleware", (filename, conf) => { })
   const config = {}
+  config["db"] = {}
   load("config", (filename, conf) => {
     config[filename] = {}
     Object.keys(conf).forEach(item => config[filename][item] = conf[item])
     //数据库
     if (conf.db) {
       conf.db.forEach(item => {
-        switch (item.nm) {
+        switch (item.type) {
           case "mongo":
             const mongoose = require("mongoose")
-            let replicaSet = item.options.replicaSet
-            replicaSet = replicaSet ? "?replicaSet=" + replicaSet : ""
-            mongoose.connect(`mongodb://${item.options.user}:${item.options.pass}@${item.options.host}:${item.options.port}/${replicaSet}`, {
+            const db = mongoose.createConnection(`mongodb://${item.options.connect}`, {
               useCreateIndex: true,
               useFindAndModify: false,
               useNewUrlParser: true,
               useUnifiedTopology: true,
               dbName: item.options.dbName
             })
-            mongoose.connection.on("connected", () => {
+            db.on("connected", () => {
               console.log('mongodb connect success')
             })
-            mongoose.connection.on("error", () => {
+            db.on("error", () => {
               console.log('mongodb connect error')
             })
-            mongoose.connection.on("disconnected", () => {
+            db.on("disconnected", () => {
               console.log('mongodb connect disconnected')
             })
+            config.db[item.name] = db
             break
           case "mssql": case "mariadb": case "postgres": case "mssql":
             const Sequelize = require("sequelize")
-            app.$config.db[item.type] = new Sequelize(item.options)
+            config.db[item.name] = new Sequelize(item.options)
             break
         }
       })
@@ -114,15 +114,7 @@ function initModel(app) {
   const models = {}
   load("model", (filename, model) => {
     console.log(`正在加载模型: ${filename}`)
-    model = model(app)
-    switch (model[0]) {
-      case "mongo":
-        models[filename] = model[1]
-        break
-      case "mssql": case "mariadb": case "postgres": case "mssql":
-        app.$model[filename] = app.$config.db[model[0]].define(filename, model[1].schema, model[1].options)
-        break
-    }
+    models[filename] = model(app)
   })
   return models
 }

@@ -19,17 +19,15 @@ module.exports = {
   db: [
     {
       type:"mongo",
+      name:"mongo",
       options: {
-          user: "user",
-          pass: "",
-          port: 27017,
-          host: "localhost",
+          connect:"user:passwork@localhost:27017",
           dbName: "db",
-          replicaSet: "",
       }
     },
     {
       type:"mysql",
+      name:"mysql1",
       options: {
         dialect: "mysql",
         host: "localhost",
@@ -40,6 +38,7 @@ module.exports = {
     },
     {
       type:"mssql",
+      name:"mssql1",
       options: {
         dialect: "mssql",
         host: "localhost",
@@ -108,8 +107,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => (["mongo", mongoose.model("user", schema)])
-//'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一
+module.exports = app => app.$config.bd.mongo.model("user", schema)
 ```
 ```js
 app.$model.user

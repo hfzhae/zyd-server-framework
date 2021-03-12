@@ -11,7 +11,7 @@ module.exports = dir => {
     fs.mkdirSync(dir);
     switch (dir) {
       case "controller":
-        fs.writeFileSync(`${dir}/index.js`, `
+        fs.writeFileSync(`${dir}/home.js`, `
 module.exports = app => ({
   "get /"(){
     app.ctx.body = "Hello World"
@@ -25,7 +25,7 @@ module.exports = app => ({
             console.log(error);
             return false;
           }
-          console.log(`写入${dir}/index.js成功`);
+          console.log(`写入${dir}/home.js成功`);
         })
         break
       case "config":
@@ -34,17 +34,15 @@ module.exports = {
   db: [
     // {
     //   type:"mongo",
+    //   name:"mongo",
     //   options: {
-    //       user: "user",
-    //       pass: "",
-    //       port: 27017,
-    //       host: "localhost",
+    //       connect:"user:passwork@localhost:27017",
     //       dbName: "db",
-    //       replicaSet: "",
     //   }
     // },
     // {
     //   type:"mysql",
+    //   name:"mysql1",
     //   options: {
     //     dialect: "mysql",
     //     host: "localhost",
@@ -55,6 +53,7 @@ module.exports = {
     // },
     // {
     //   type:"mssql",
+    //   name:"mssql1",
     //   options: {
     //     dialect: "mssql",
     //     host: "localhost",
@@ -159,7 +158,7 @@ const schema = new mongoose.Schema({
   userName: { type: String },
   age: { type: Number }
 })
-module.exports = app => (["mongo", mongoose.model("user", schema)])
+module.exports = app => app.$config.bd.mongo.model("user", schema)
         `, function (error) {
           if (error) {
             console.log(error);
