@@ -27,7 +27,8 @@ function initController(app) {
     filename = "/" + filename
     routes = typeof routes === "function" ? routes(app) : routes // 支持柯里化
     Object.keys(routes).forEach(key => {
-      const [method, path] = key.split(" ")
+      let [method, path] = key.split(" ")
+      path = path === "/" ? "" : path // 末尾无斜杠也能访问路由
       console.log(`正在映射地址: ${method.toLocaleUpperCase()} ${filename}${path}`)
       router[method](filename + path, async ctx => {
         app.ctx = ctx
