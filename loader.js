@@ -105,7 +105,8 @@ function initConfig(app) {
 function initSchedule(app) {
   const schedule = require("node-schedule")
   load("schedule", (filename, schduleConfig) => {
-    const conf = schduleConfig(app)
+    console.log(`正在启动定时器: ${filename}`)
+    const conf = typeof schduleConfig === "function" ? schduleConfig(app) : schduleConfig  // 支持柯里化
     schedule.scheduleJob(conf.interval, conf.handler)
   })
 }
