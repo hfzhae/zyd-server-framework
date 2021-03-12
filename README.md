@@ -17,8 +17,9 @@ app.start(3000)
 ```js
 module.exports = {
   db: [
+    /* type: 'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */
     {
-      type:"mongo",
+      type:"mongo", 
       name:"mongo",
       options: {
           connect:"user:password@localhost:27017",
@@ -97,6 +98,20 @@ module.exports = async (ctx, next) => {
   await next()
 }
 ```
+>/middleware/callBack.js
+
+```js
+const Router = require('koa-router')
+const router = new Router();
+const assert = require("http-assert")
+        
+module.exports = (router.post("/callBack:id", async ctx => {
+  const id = ctx.parmas.id
+  assert(id, 400, "缺少id")
+  ctx.body = "中间件前置路由"
+})).routes()
+```
+[http://localhost:3000/callBack/1234567](http://localhost:3000/callBack/1234567)
 
 ## model
 >/model/user.js

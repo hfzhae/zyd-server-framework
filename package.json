@@ -1,6 +1,6 @@
 {
   "name": "zyd-server-framework",
-  "version": "1.0.40",
+  "version": "1.0.41",
   "description": "基于nodejs,koa的server端框架",
   "main": "index.js",
   "scripts": {

@@ -32,6 +32,7 @@ module.exports = app => ({
         fs.writeFileSync(`${dir}/index.js`, `
 module.exports = {
   db: [
+    /* type: 'mongo' | 'mysql' | 'mariadb' | 'postgres' | 'mssql' 其一 */
     // {
     //   type:"mongo",
     //   name:"mongo",
@@ -41,7 +42,7 @@ module.exports = {
     //   }
     // },
     // {
-    //   type:"mysql",
+    //   type:"mysql", 
     //   name:"mysql1",
     //   options: {
     //     dialect: "mysql",
@@ -66,6 +67,7 @@ module.exports = {
   middleware: [
     "error",
     "favicon",
+    "callBack",
   ],
 }
         `, function (error) {
@@ -149,6 +151,23 @@ module.exports = async (ctx, next) => {
             return false;
           }
           console.log(`${dir}/favicon.js成功`);
+        })
+        fs.writeFileSync(`${dir}/callBack.js`, `
+const Router = require('koa-router') // koa 路由中间件
+const router = new Router(); // 实例化路由
+const assert = require("http-assert")
+        
+module.exports = (router.post("/callBack:id", async ctx => {
+  const id = ctx.parmas.id
+  assert(id, 400, "缺少id")
+  ctx.body = "中间件前置路由"
+})).routes()
+        `, function (error) {
+          if (error) {
+            console.log(error);
+            return false;
+          }
+          console.log(`${dir}/callBack.js成功`);
         })
         break
       case "model":
