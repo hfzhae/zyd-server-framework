@@ -112,6 +112,32 @@ module.exports = (router.get("/callBack/:id", async ctx => {
 })).routes()
 ```
 [http://localhost:3000/callBack/1234567](http://localhost:3000/callBack/1234567)
+>/middleware/homePage.js
+
+```js
+// 静态页面中间件
+const static = require("koa-static")
+const mount = require('koa-mount')
+module.exports = app => mount('/homePage', static('./homePage'))
+```
+>/homePage/index.html
+
+```html
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>homePage</title>
+</head>
+<body>
+  <h3>zyd-server-framework</h3>
+  <p><a href="https://www.npmjs.com/package/zyd-server-framework">https://www.npmjs.com/package/zyd-server-framework</a></p>
+  <p><a href="https://github.com/hfzhae/zyd-server-framework">https://github.com/hfzhae/zyd-server-framework</a></p>
+</body>
+</html>
+```
+[http://localhost:3000/homePage](http://localhost:3000/homePage)
 
 ## model
 >/model/user.js

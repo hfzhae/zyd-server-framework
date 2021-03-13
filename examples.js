@@ -3,7 +3,7 @@
  * 2021-3-10
  * zz
  */
-module.exports = dir => {
+ module.exports = dir => {
   const fs = require("fs")
   try {
     fs.accessSync(dir);
@@ -65,6 +65,7 @@ module.exports = {
     // }
   ],
   middleware: [
+    "homePage",
     "error",
     "favicon",
     "callBack",
@@ -116,6 +117,11 @@ module.exports = {
         })
         break
       case "middleware":
+        try {
+          fs.accessSync("homePage");
+        } catch (e) {
+          fs.mkdirSync("homePage");
+        }      
         fs.writeFileSync(`${dir}/error.js`, `
 module.exports = async (ctx, next) => {
   try {
@@ -168,6 +174,39 @@ module.exports = (router.get("/callBack/:id", async ctx => {
             return false;
           }
           console.log(`${dir}/callBack.js成功`);
+        })
+        fs.writeFileSync(`${dir}/homePage.js`, `
+// 静态页面中间件
+const static = require("koa-static")
+const mount = require('koa-mount')
+module.exports = app => mount('/homePage', static('./homePage'))
+        `, function (error) {
+          if (error) {
+            console.log(error);
+            return false;
+          }
+          console.log(`${dir}/homePage.js成功`);
+        })
+        fs.writeFileSync(`homePage/index.html`, `
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>homePage</title>
+</head>
+<body>
+  <h3>zyd-server-framework</h3>
+  <p><a href="https://www.npmjs.com/package/zyd-server-framework">https://www.npmjs.com/package/zyd-server-framework</a></p>
+  <p><a href="https://github.com/hfzhae/zyd-server-framework">https://github.com/hfzhae/zyd-server-framework</a></p>
+</body>
+</html>
+        `, function (error) {
+          if (error) {
+            console.log(error);
+            return false;
+          }
+          console.log(`homePage/index.html成功`);
         })
         break
       case "model":
