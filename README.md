@@ -5,9 +5,10 @@
 $ npm install -Save zyd-server-framework
 ```
 
+## Quickstart
 ```js
 const Zsf = require("zyd-server-framework")
-const app = new Zsf() // new Zsf({ cors: true })
+const app = new Zsf() // new Zsf({ cors: true, baseUrl: "/api" })
 app.start(3000)
 ```
 

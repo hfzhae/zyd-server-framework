@@ -1,6 +1,6 @@
 {
   "name": "zyd-server-framework",
-  "version": "1.0.53",
+  "version": "1.0.60",
   "description": "基于nodejs,koa的server端框架",
   "main": "index.js",
   "scripts": {
@@ -11,16 +11,17 @@
     "nodejs",
     "koa"
   ],
-  "author": "",
+  "author": "zhangzheng",
   "license": "MIT",
   "homepage": "https://github.com/hfzhae/zyd-server-framework",
   "dependencies": {
+    "http-assert": "^1.4.1",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
+    "koa-cors": "0.0.16",
     "koa-mount": "^4.0.0",
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
-    "koa2-cors": "^2.0.6",
     "mongoose": "^5.11.18",
     "node-schedule": "^2.0.0",
     "sequelize": "^6.5.0"

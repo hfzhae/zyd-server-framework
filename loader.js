@@ -24,7 +24,7 @@ function initController(app) {
   load("controller", (filename, routes) => {
     //路由的前缀
     // filename = filename === "index" ? "" : `/${filename}`
-    filename = "/" + filename
+    filename = app.$global.baseUrl ? app.$global.baseUrl + "/" + filename : "/" + filename
     routes = typeof routes === "function" ? routes(app) : routes // 支持柯里化
     Object.keys(routes).forEach(key => {
       let [method, path] = key.split(" ")
@@ -54,6 +54,7 @@ function initConfig(app) {
   const config = {}
   config["db"] = {}
   load("config", (filename, conf) => {
+    console.log(`正在加载配置文件: ${filename}`)
     config[filename] = {}
     Object.keys(conf).forEach(item => config[filename][item] = conf[item])
     //数据库

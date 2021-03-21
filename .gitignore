@@ -6,3 +6,4 @@ service
 model
 main.js
 middleware
+homePage
