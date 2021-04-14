@@ -8,7 +8,24 @@ $ npm install -Save zyd-server-framework
 ## Quickstart
 ```js
 const Zsf = require("zyd-server-framework")
-const app = new Zsf() // new Zsf({ cors: true, baseUrl: "/api" })
+const app = new Zsf() 
+/* 前置函数写法
+const app = new Zsf({ cors: true, baseUrl: "/api", callBack(koaApp){
+  const session = require("koa-session")
+  koaApp.keys = ["some secret hurr"]
+
+  const config = {
+    key: "koa:sess",
+    maxAge: 86400000,
+    overwrite: true,
+    httpOnly: true,
+    signed: true,
+    rolling: false,
+    renew: false,
+  }
+  koaApp.use(session(config, koaApp))
+} })
+*/
 app.start(3000)
 ```
 
