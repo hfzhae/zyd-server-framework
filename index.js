@@ -14,6 +14,10 @@ class Zyd {
       this.$app.use(require('koa-cors')())
     }
     this.$app.use(bodyParser())
+    //前置回调
+    if(conf && conf.callBack){
+      conf.callBack(this.$app)
+    }
     //执行配置文件
     this.$config = initConfig(this) //返回config配置
     this.$plugin = initPlugin(this)
@@ -22,7 +26,7 @@ class Zyd {
     if(conf && conf.baseUrl){
       this.$global.baseUrl = conf.baseUrl
     }
-
+    
     this.$service = initService(this)
     this.$model = initModel(this)
     this.$controller = initController(this)
