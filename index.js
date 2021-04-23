@@ -9,12 +9,12 @@ const { initController, initService, initConfig, initSchedule, initModel, initPl
 class Zyd {
   constructor(conf) {
     this.$app = new Koa()
-    //生命周期函数 - init前
+    //生命周期函数 - init前 zz 2021-4-23
     if (conf && conf.beforeInit) conf.beforeInit(this.$app)
 
     this.$global = {} //定义全局变量
 
-    if (conf && conf.baseUrl) { // 复制全局变量得基础路径 zz 2021-4-23
+    if (conf && conf.baseUrl) { // 复制全局变量得基础路径
       this.$global.baseUrl = conf.baseUrl
     }
 
