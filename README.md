@@ -9,24 +9,33 @@ $ npm install -Save zyd-server-framework
 ```js
 const Zsf = require("zyd-server-framework")
 const app = new Zsf() 
-/* 前置函数写法
-const app = new Zsf({ cors: true, baseUrl: "/api", callBack(koaApp){
-  const session = require("koa-session")
-  koaApp.keys = ["some secret hurr"]
-
-  const config = {
-    key: "koa:sess",
-    maxAge: 86400000,
-    overwrite: true,
-    httpOnly: true,
-    signed: true,
-    rolling: false,
-    renew: false,
-  }
-  koaApp.use(session(config, koaApp))
-} })
+/*
+const app = new Zsf({ 
+  baseUrl: "/api", // 基础路径设置
+  beforeInit(koaApp){ // 生命周期函数 - 初始化前
+    koaApp.use(require("koa-cors")()) // 跨域设置
+    koaApp.use(require("koa-bodyparser")()) // body设置
+    const session = require("koa-session") // session设置
+    koaApp.keys = ["some secret hurr"]
+    koaApp.use(session({
+      key: "koa:sess",
+      maxAge: 86400000,
+      overwrite: true,
+      httpOnly: true,
+      signed: true,
+      rolling: false,
+      renew: false,
+    }, koaApp))
+  },
+  afterInit(koaApp){ ... } // 生命周期函数 - 初始化后
+})
 */
 app.start(3000)
+/*
+app.start(3000, callBack(){
+  console.log("start on port：3000")
+})
+*/
 ```
 
 ## config
