@@ -2,7 +2,7 @@
 
 ## Installation
 ```
-$ npm install -Save zyd-server-framework
+$ npm install -s zyd-server-framework
 ```
 
 ## Quickstart
