@@ -128,7 +128,7 @@ module.exports = async (ctx, next) => {
     await next()
   } catch (err) {
     const code = err.status || 500
-    const message = err.message
+    const message = err.response && err.response.data || err.message
     ctx.body = {
       code,
       message
