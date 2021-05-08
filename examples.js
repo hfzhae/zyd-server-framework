@@ -84,7 +84,7 @@ module.exports = {
 module.exports = app => ({
   interval: "0 1 * * * *", //crontab格式
   handler() {
-    console.log("这是一个定时任务")
+    console.log("这是一个定时任务 " + new Date().toLocaleString())
   }
 })
         `, function (error) {
