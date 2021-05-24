@@ -3,6 +3,8 @@
   <a href="https://github.com/hfzhae/zyd-server-framework/blob/master/LICENSE"><img style="margin-right:5px;" src="https://img.shields.io/badge/license-MIT-grren.svg"></a>
   <img style="margin-right:5px;" src="https://img.shields.io/badge/koa-v2.13.1-blue.svg">
   <img style="margin-right:5px;" src="https://img.shields.io/badge/node-v14.16.1-orange.svg">
+  <a href="https://www.npmjs.com/package/zyd-server-framework"><img style="margin-right:5px;" src="https://img.shields.io/badge/npm-passing-yellow.svg"></a>
+
 </p>
 
 ## Installation
