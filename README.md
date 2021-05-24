@@ -1,4 +1,9 @@
 # [zyd-server-framework](https://github.com/hfzhae/zyd-server-framework)
+<p>
+  <a href="https://github.com/hfzhae/zyd-server-framework/blob/master/LICENSE"><img style="margin-right:5px;" src="https://img.shields.io/badge/license-MIT-grren.svg"></a>
+  <img style="margin-right:5px;" src="https://img.shields.io/badge/koa-v2.13.1-blue.svg">
+  <img style="margin-right:5px;" src="https://img.shields.io/badge/node-v14.16.1-orange.svg">
+</p>
 
 ## Installation
 ```
@@ -206,6 +211,17 @@ module.exports = app => ({
   }
 })
 ```
+
+## dependencies
+| Project               | NPM                             | 
+| --------------------- | ------------------------------- | 
+| http-assert           | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v1.4.1-blue.svg">     |
+| koa                   | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v2.13.1-blue.svg"> | 
+| koa-mount             | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v4.0.0-blue.svg">   | 
+| koa-router            | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v10.0.0-blue.svg">   |
+| mongoose              | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v5.11.18-blue.svg">     |
+| node-schedule         | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v2.0.0-blue.svg">   |
+| sequelize             | <img style="margin-right:5px;" src="https://img.shields.io/badge/npm-v6.5.0-blue.svg">   |
 
 ## License
 [MIT](https://github.com/hfzhae/zyd-server-framework/blob/master/LICENSE)
