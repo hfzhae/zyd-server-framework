@@ -17,6 +17,7 @@ class Zyd {
     if (conf && conf.baseUrl) { // 复制全局变量得基础路径
       this.$global.baseUrl = conf.baseUrl
     }
+    this.$global.port = 3000
 
     //init
     //执行配置文件
@@ -33,9 +34,10 @@ class Zyd {
     this.$app.use(this.$controller.routes())
   }
 
-  start(port = 3000, callBack = () => {
+  start(port = this.$global.port, callBack = () => {
     console.log("start on port：" + port)
   }) {
+    this.$global.port = port
     this.$app.listen(port, callBack)
   }
 }
