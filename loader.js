@@ -33,6 +33,8 @@ function initController(app) {
       router[method](filename + path, async ctx => {
         app.ctx = ctx
         await routes[key](app)
+        ctx.body = app.ctx.body
+        await next()
       })
     })
   })
